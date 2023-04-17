@@ -1,0 +1,28 @@
+<% if user_signed_in? %> 
+  <h1>Products</h1>
+  <%= link_to "new product", new_product_path %>
+  <table>
+    <thead>
+      <tr>
+        <th>product_name</th>
+        <th>price</th>
+        <th>description</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.product_name %></td>
+          <td><%= product.price %></td>
+          <td><%= product.description %></td>
+          <td><%= link_to "edit", edit_product_path(product) %></td>
+          <td><%= button_to "destroy", product_path(product), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
