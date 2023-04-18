@@ -45,4 +45,10 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "you have successfully deleted the product", flash[:notice]
     assert_redirected_to root_path
   end
+
+  test "trying user to add a product after signinng out" do
+    sign_out @user
+    get new_product_path
+    assert_response :redirect
+  end
 end
