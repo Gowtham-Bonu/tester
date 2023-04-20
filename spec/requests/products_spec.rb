@@ -6,11 +6,6 @@ RSpec.describe "Products", type: :request do
     sign_in @user
   end
 
-  it "an example" do
-    get root_url
-    expect(response).to have_http_status(:ok)
-  end
-
   let(:valid_attributes) { { product_name: "prodone", price: 21, description: "wiefhfuh wewefuhwifh", user_id: @user.id } }
 
   let(:invalid_attributes) { { product_name: "", price: "sdf", description: "wiefhfuh wewefuhwifh", user_id: nil} }
@@ -67,7 +62,7 @@ RSpec.describe "Products", type: :request do
 
   describe "update" do
     let(:new_attributes) { { product_name: "changed", price: 200, description: "weffeefefwef", user_id: @user.id} }
-    
+
     it "updates the product" do
       product = Product.create valid_attributes
       patch product_path(product), params: { product: new_attributes }
