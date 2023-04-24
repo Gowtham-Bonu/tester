@@ -4,6 +4,7 @@ RSpec.describe "Products", type: :request do
   before(:each) do
     @user = create(:user) 
     sign_in @user
+    @product = Product.create(valid_attributes)
   end
 
   let(:valid_attributes) { { product_name: "prodone", price: 21, description: "wiefhfuh wewefuhwifh", user_id: @user.id } }
@@ -54,8 +55,7 @@ RSpec.describe "Products", type: :request do
 
   describe "edit" do
     it "gets to edit and renders a successful response" do
-      product = Product.create(valid_attributes)
-      get edit_product_url(product)
+      get edit_product_url(@product)
       expect(response).to be_successful
     end
   end
@@ -64,24 +64,21 @@ RSpec.describe "Products", type: :request do
     let(:new_attributes) { { product_name: "changed", price: 200, description: "weffeefefwef", user_id: @user.id} }
 
     it "updates the product" do
-      product = Product.create valid_attributes
-      patch product_path(product), params: { product: new_attributes }
-      product.reload
+      patch product_path(@product), params: { product: new_attributes }
+      @product.reload
       expect(response).to redirect_to root_path
     end
   end
 
   describe "destroy" do
     it "destroy the product" do
-      product = Product.create valid_attributes
       expect{
-        delete product_url(product)
+        delete product_url(@product)
       }.to change(Product, :count).by(-1)
     end
 
     it "redirect to root path" do
-      product = Product.create valid_attributes
-      delete product_url(product)
+      delete product_url(@product)
       expect(response).to redirect_to root_path
     end
   end

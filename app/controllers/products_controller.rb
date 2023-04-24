@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :get_product, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -19,12 +20,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def edit
-    @product = Product.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to root_path, notice: "you have successfully updated the product"
     else
@@ -34,7 +32,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     if @product.destroy
       flash[:notice] = "you have successfully deleted the product"
     else
@@ -44,6 +41,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def get_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:product_name, :price, :description, :user_id)
