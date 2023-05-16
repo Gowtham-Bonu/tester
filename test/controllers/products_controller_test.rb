@@ -46,7 +46,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test "trying user to add a product after signinng out" do
+  test "trying user to add a product after signing out" do
     sign_out @user
     get new_product_path
     assert_response :redirect

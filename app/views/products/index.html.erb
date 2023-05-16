@@ -16,8 +16,8 @@
           <td><%= product.product_name %></td>
           <td><%= product.price %></td>
           <td><%= product.description %></td>
-          <td><button class= "btn btn-light"><%= link_to "edit", edit_product_path(product) %></button></td>
-          <td><%= button_to "destroy", product_path(product), method: :delete, class: "btn btn-light" %></td>
+          <td><%= link_to "edit", edit_product_path(product), class: "btn btn-light" %></td>
+          <td><%= button_to "destroy", product_path(product), method: :delete, class: "btn btn-dark" %></td>
         </tr>
       <% end %>
     </tbody>

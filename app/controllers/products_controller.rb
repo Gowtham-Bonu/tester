@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to root_path, notice: "you have successfully created a product"
     else
-      flash.now[:alert] = "Invalid request"
+      flash.now[:alert] = [@product.errors.full_messages].join(", ")
       render :new, status: :unprocessable_entity
     end
   end
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
     if @product.update(product_params)
       redirect_to root_path, notice: "you have successfully updated the product"
     else
-      flash.now[:alert] = "Invalid request"
+      flash.now[:alert] = [@product.errors.full_messages].join(", ")
       render :edit, status: :unprocessable_entity
     end
   end
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
     if @product.destroy
       flash[:notice] = "you have successfully deleted the product"
     else
-      flash[:alert] = "Invalid request"
+      flash[:alert] = [@product.errors.full_messages].join(", ")
     end
     redirect_to root_path
   end
@@ -47,6 +47,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:product_name, :price, :description, :user_id)
+    params.require(:product).permit(:product_name, :price, :description)
   end
 end

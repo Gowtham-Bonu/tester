@@ -1,5 +1,4 @@
 <%= form_with model: product do |form| %>
-
   <%= form.label :product_name %>
   <%= form.text_field :product_name %>
   <% product.errors.full_messages_for(:product_name).each do |error| %>
