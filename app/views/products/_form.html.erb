@@ -1,0 +1,21 @@
+<%= form_with model: product do |form| %>
+  <%= form.label :product_name %>
+  <%= form.text_field :product_name %>
+  <% product.errors.full_messages_for(:product_name).each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+
+  <%= form.label :price %>
+  <%= form.number_field :price %>
+  <% product.errors.full_messages_for(:price).each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  <% product.errors.full_messages_for(:description).each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>
