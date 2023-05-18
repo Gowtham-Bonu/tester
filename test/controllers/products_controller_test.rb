@@ -20,10 +20,16 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create a product" do
     assert_difference("Product.count")do
-      post products_path, params: {product: {product_name: "kaisjndm", price: 2, description: nil, user_id: @user.id}}
+      post products_path, params: {product: {product_name: "kaisjndm", price: 2, description: nil}}
     end
     assert_redirected_to root_path
     assert_equal "you have successfully created a product", flash[:notice]
+  end
+
+  test "should not create a product" do
+    assert_no_difference("Product.count")do
+      post products_path, params: {product: {description: nil}}
+    end
   end
 
   test "should edit product" do
@@ -36,6 +42,11 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     patch product_path(@product), params: {product: {product_name: "updated", price: 5, description: "lsdfn", user_id: @user.id}}
     assert_equal "you have successfully updated the product", flash[:notice]
     assert_redirected_to root_path
+  end
+
+  test "should not update product" do
+    patch product_path(@product), params: {product: {product_name: "updated", price: 5, description: "lsdfn"}}
+    assert_equal "user must exist", flash[:alert]
   end
 
   test "should delete product" do
